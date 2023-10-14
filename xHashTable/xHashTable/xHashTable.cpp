@@ -17,6 +17,12 @@ xHashTable<K, V>::xHashTable()
     this->buckets = new Bucket<K, V>[this->capacity];
 };
 
+template <typename K, typename V>
+xHashTable<K, V>::~xHashTable()
+{
+    delete [] this->buckets;
+};
+
 #pragma endregion Constructor
 
 #pragma region PublicMethods
