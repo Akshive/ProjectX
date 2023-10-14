@@ -92,6 +92,7 @@ void xHashTable<K, V>::Resize(size_t newCapacity)
     }
     
     // Fix this ...
+    delete [] this->buckets;
     this->buckets = newBuckets;
 };
 
