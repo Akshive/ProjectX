@@ -26,6 +26,7 @@ class xHashTable
         
     public:
         xHashTable();
+        ~xHashTable();
         void Put(K key, V value);
         bool Get(K key, V &value);
 };
