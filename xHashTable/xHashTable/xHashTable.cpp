@@ -37,9 +37,15 @@ void xHashTable<K, V>::Put(K key, V value)
     
     size_t index = this->GetHash(key);
     
-    while (this->buckets[index].IsOccupied)
+    if (this->buckets[index].IsOccupied)
     {
-        index++;
+        size_t home = index;
+        index = (index+1) % this->capacity;
+        
+        while (index != home && this->buckets[index].IsOccupied)
+        {
+            index = (index+1) % this->capacity;
+        }
     }
     
     this->buckets[index] = Bucket<K, V>(key, value);
@@ -88,11 +94,17 @@ void xHashTable<K, V>::Resize(size_t newCapacity)
         {
             size_t index = this->GetHash(buckets[i].Key);
             
-            while (newBuckets[index].IsOccupied)
+            if (newBuckets[index].IsOccupied)
             {
-                index++;
+                size_t home = index;
+                index = (index+1) % this->capacity;
+                
+                while (index != home && this->buckets[index].IsOccupied)
+                {
+                    index = (index+1) % this->capacity;
+                }
             }
-            
+
             newBuckets[index] = this->buckets[i];
         }
     }
